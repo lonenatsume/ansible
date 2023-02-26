@@ -1,0 +1,7 @@
+---
+- name: testing ansible from git
+  hosts: all
+  tasks:
+  - name: test command module from yaml playbook
+    command:
+       cmd: cat /etc/hostname
