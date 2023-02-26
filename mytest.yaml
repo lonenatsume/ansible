@@ -1,7 +1,18 @@
 ---
-- name: testing ansible from git
-  hosts: all
+- name: Install and start apache
+  hosts: web
   tasks:
-  - name: test command module from yaml playbook
-    command:
-       cmd: cat /etc/hostname
+   - name: Ensure the httpd package is installed  
+     ansible.builtin.yum:
+            name: httpd
+            state: present
+            
+   - name: create index.html file
+     ansible.builtin.template:
+            src: files/index.html
+            dest: /var/www/html
+            
+   - name: Start the httpd service if needed
+     ansible.builtin.service:
+             name: httpd
+             state: started
